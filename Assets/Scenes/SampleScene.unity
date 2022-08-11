@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 684135892}
   - component: {fileID: 684135895}
   - component: {fileID: 684135894}
+  - component: {fileID: 684135896}
   m_Layer: 0
   m_Name: AlarmTrigger
   m_TagString: Untagged
@@ -508,6 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.25
+  _entryChecker: {fileID: 684135896}
 --- !u!82 &684135895
 AudioSource:
   m_ObjectHideFlags: 0
@@ -604,6 +606,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &684135896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684135891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d2aab2dc8a94d4fa8e830b7f01cb0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

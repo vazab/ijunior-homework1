@@ -29,6 +29,6 @@ public class PlayerMovement : MonoBehaviour
             _sprite.flipX = false;
         }
 
-        _animator.SetFloat("speed", Mathf.Abs(directionX));
+        _animator.SetFloat(PlayerAnimator.Params.Speed, Mathf.Abs(directionX));
     }
 }

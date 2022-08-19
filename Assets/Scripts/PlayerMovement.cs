@@ -1,34 +1,40 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] private float _speed = 150f;
+    [SerializeField] private float _jumpForce = 3f;
+    [SerializeField] private GroundChecker _groundChecker;
 
-    private SpriteRenderer _sprite;
-    private float directionX;
-    private Animator _animator;
+    private Rigidbody2D _rigidody;
+
+    public float Move { get; private set; }
+    public bool Jump { get; private set; }
+
+    public bool CheckGround()
+    {
+        return _groundChecker.IsGrounded;
+    }
 
     private void Start()
     {
-        _sprite = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+        _rigidody = GetComponent<Rigidbody2D>();
     }
 
     private void FixedUpdate()
     {
-        directionX = Input.GetAxis("Horizontal") * _speed * Time.deltaTime;
-        transform.Translate(directionX, 0, 0);
+        _rigidody.velocity = new Vector2(Move * _speed * Time.deltaTime, _rigidody.velocity.y);
 
-        if (directionX < 0)
+        if (Jump)
         {
-            _sprite.flipX = true;
+            _rigidody.velocity = new Vector2(_rigidody.velocity.x, _jumpForce);
         }
-        else if (directionX > 0)
-        {
-            _sprite.flipX = false;
-        }
+    }
 
-        _animator.SetFloat("speed", Mathf.Abs(directionX));
+    private void Update()
+    {
+        Move = Input.GetAxisRaw("Horizontal");
+        Jump = Input.GetKey(KeyCode.W) && _groundChecker.IsGrounded == true;
     }
 }

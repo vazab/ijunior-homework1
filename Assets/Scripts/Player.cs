@@ -1,19 +1,23 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator), typeof(PlayerMovement))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
     private Animator _animator;
-    private SpriteRenderer _sprite;
+    private SpriteRenderer _spriteRenderer;
     private PlayerMovement _movement;
+    private float fallTreshold = -0.1f;
 
     public int Money { get; private set; }
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-        _sprite = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _movement = GetComponent<PlayerMovement>();
     }
@@ -52,6 +56,6 @@ public class Player : MonoBehaviour
         _animator.SetFloat(PlayerAnimator.Params.Speed, Mathf.Abs(_rigidbody.velocity.x));
         _animator.SetBool(PlayerAnimator.Params.IsGrounded, _movement.CheckGround());
         _animator.SetBool(PlayerAnimator.Params.Jump, _movement.Jump);
-        _animator.SetBool(PlayerAnimator.Params.Fall, _rigidbody.velocity.y < -0.1);
+        _animator.SetBool(PlayerAnimator.Params.Fall, _rigidbody.velocity.y < fallTreshold);
     }
 }

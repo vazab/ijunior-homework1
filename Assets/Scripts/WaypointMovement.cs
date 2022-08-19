@@ -33,7 +33,9 @@ public class WaypointMovement : MonoBehaviour
         Transform target = _points[_currentPoint];
         Direction = Mathf.Sign(target.position.x - transform.position.x);
 
-        bool isPointReached = Mathf.Abs(target.position.x - transform.position.x) < 0.1;
+        float pointRadius = 0.1f;
+        
+        bool isPointReached = Mathf.Abs(target.position.x - transform.position.x) < pointRadius;
         if (isPointReached)
         {
             _currentPoint++;

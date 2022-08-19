@@ -4,6 +4,7 @@ using UnityEngine;
 public class GroundChecker : MonoBehaviour
 {
     private const string LayerName = "Solid";
+    
     private int _layerNumber;
 
     public bool IsGrounded { get; private set; }

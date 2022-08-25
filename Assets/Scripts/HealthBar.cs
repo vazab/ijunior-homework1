@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
+[RequireComponent(typeof(Slider))]
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Health _health;
@@ -9,9 +10,11 @@ public class HealthBar : MonoBehaviour
     private float _lastCurrentHealth;
     private float _changingRate = 1f;
     private Coroutine _changeHealthJob;
+    private Slider _slider;
 
     private void OnEnable()
     {
+        _slider = GetComponent<Slider>();
         _health.HealthChanged += OnHealthChanged;
     }
 
@@ -32,12 +35,11 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator ChangeHealth()
     {
-        Slider slider = GetComponent<Slider>();
         float normalizeHealth = _health.CurrentHealth / _health.MaxHealth;
 
-        while (slider.value != normalizeHealth)
+        while (_slider.value != normalizeHealth)
         {
-            slider.value = Mathf.MoveTowards(slider.value, normalizeHealth, _changingRate * Time.deltaTime);
+            _slider.value = Mathf.MoveTowards(_slider.value, normalizeHealth, _changingRate * Time.deltaTime);
             yield return null;
         }
     }
